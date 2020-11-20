@@ -14,7 +14,7 @@ public class 发送端 {
         //创建发送端的Socket对象
         DatagramSocket ds = new DatagramSocket();
 
-        //封装键盘录入数据
+        //封装键盘录入数据, 使用BufferedReader读取比Scanner好, 可以读入空格之类的
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = null;
 

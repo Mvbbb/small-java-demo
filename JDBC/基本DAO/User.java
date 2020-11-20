@@ -1,5 +1,3 @@
-package DAO;
-
 /**
  * Created by asd on 2016/10/12.
  */
