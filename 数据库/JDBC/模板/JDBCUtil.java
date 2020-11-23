@@ -1,8 +1,11 @@
+package utils;
+
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 
 import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -12,16 +15,16 @@ public class JDBCUtil {
 
     static{
         Properties props = new Properties();
-        FileInputStream fileInputStream=null;
+        InputStream is = null;
         try {
-            fileInputStream=new FileInputStream("druid.Properties");
-            props.load(fileInputStream);
+            is=JDBCUtil.class.getClassLoader().getResourceAsStream("druid.properties");;
+            props.load(is);
             dataSource = DruidDataSourceFactory.createDataSource(props);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                fileInputStream.close();
+                is.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
