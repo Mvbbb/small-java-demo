@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class WebServer {
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket=new ServerSocket(8110);
+        ServerSocket serverSocket=new ServerSocket(8000);
         while(true){
             Socket socket= serverSocket.accept();
             new Thread(new MyHttpServer(socket)).start();

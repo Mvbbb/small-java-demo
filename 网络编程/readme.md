@@ -1,6 +1,10 @@
-# UDP
+这个目录下主要包含了计算机网络和Java结合的相关内容. 
 
-## udp发送端
+# TCP/UDP
+
+## UDP
+
+### udp发送端
 
 1. 创建发送端的Socket对象 `new DatagramSocket();`
 
@@ -10,7 +14,7 @@
 
 4. 关闭 Socket
 
-## udp接收端
+### udp接收端
 
 1. 创建Socket对象, 需要指定端口号`new DatagramSocket(12345);`
 
@@ -20,9 +24,9 @@
 
 4. 关闭`socket`
 
-# TCP
+## TCP
 
-## tcp发送端
+### tcp发送端
 
 1. 创建发送端的Socket `new Socket("192.168.1.106",8888);`
 
@@ -30,7 +34,7 @@
 
 3. 关闭 Socket
 
-## tcp接收端  
+### tcp接收端  
 
 1. 创建接收端 Welcome Socket, 指定端口号`new ServerSocket(8888);`
 
