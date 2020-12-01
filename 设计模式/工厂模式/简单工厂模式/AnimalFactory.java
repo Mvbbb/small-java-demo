@@ -1,7 +1,3 @@
- 
-/**
- * Created by asd on 2016/9/27.
- */
 public class AnimalFactory {
      public static Dog createDog() {
      return new Dog();
@@ -11,6 +7,11 @@ public class AnimalFactory {
      return new Cat();
      }
 
+     /**
+      * 根据用户提供的 type 返回不同的实例对象
+      * @param type
+      * @return
+      */
     public static Animal createAniaml(String type) {
         if ("dog".equals(type)) {
             return new Dog();
@@ -20,4 +21,25 @@ public class AnimalFactory {
             return null;
         }
     }
+}
+
+abstract class Animal {
+    public abstract void eat();
+}
+
+class Cat extends Animal {
+
+	@Override
+	public void eat() {
+		System.out.println("猫在吃");
+	}
+
+}
+
+class Dog extends Animal {
+
+	@Override
+	public void eat() {
+		System.out.println("狗在吃");
+	}
 }
