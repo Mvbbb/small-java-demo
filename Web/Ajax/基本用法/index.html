@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    
+</head>
+<body>
+<!--点击加载按钮之后, 向服务器发送请求, 将收到的回复动态的加载到 div 中-->
+<input id="btnLoad" type="button" value="加载" >
+<div id="divContent"> </div>
+<script>
+    document.getElementById("btnLoad").onclick=function() {
+        // 1. 创建 XmlHttpRequest 对象
+        var xmlhttp;
+        if (window.XMLHttpRequest) {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp=new XMLHttpRequest();
+        }
+        else{
+            // IE6, IE5 浏览器执行代码
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        console.log(xmlhttp);
+        // 2. 发送 Ajax 请求
+        xmlhttp.open("GET","/imooc/servercontent",true);
+        xmlhttp.send();
+        // 3. 处理服务器响应
+        /**
+         *xmlhttp.onreadystatechange() 事件用于监听AJAX的执行状态
+         *xmlhttp.readyState属性说明了XMLHttpRequest当前状态  [菜鸟教程](https://www.runoob.com/ajax/ajax-xmlhttprequest-onreadystatechange.html)
+         * xmlhttp.status属性服务器响应状态码, 200成功, 404失败
+         */
+        xmlhttp.onreadystatechange = function() {
+            if(xmlhttp.readyState==4&&xmlhttp.status==200){
+                var responseText = xmlhttp.responseText;
+                document.getElementById("divContent").innerHTML=responseText;
+            }
+        }
+    }
+</script>
+</body>
+</html>
