@@ -7,6 +7,15 @@
 <!--        驼峰命名转换 home_adress ==> homeAdress -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+    
+<!--    插件 https://pagehelper.github.io/docs/howtouse/-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="helperDialect" value="mysql"/>
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
+    
 <!--    默认指向的数据库-->
     <environments default="dev">
         <environment id="dev">
@@ -23,5 +32,6 @@
     </environments>
     <mappers>
         <mapper resource="mappers/table1.xml"/>
+        <mapper resource="mappers/Course.xml"/>
     </mappers>
 </configuration>

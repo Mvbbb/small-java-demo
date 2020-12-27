@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namesapce 命名空间, 类似于包, 区分不同的sql语句. 例如:区分不同命名空间的selectAll-->
+<mapper namespace="table1">
+    
+<!--    开启二级缓存
+eviction: 缓存的清除策略
+    LRU: 最长时间未被使用的
+    FIFO: 先进先出
+    SOFT: 软引用, 基于GC状态和软引用规则的对象
+    WEAK: 弱引用, 更积极的移除基于GC状态和弱引用规则的对象
+flushInterval: 刷新间隔, 单位是毫秒
+size: 缓存长度, 一个集合算一个对象
+readOnly: 设置 true: 返回只读缓存, 每次直接从缓存取出的是缓存对象本身, 这种执行效率高
+            设置为false: 代表每次取出的是缓存对象的副本, 每次取出的对象是不同的, 这种安全性较高
+-->
+    <cache eviction="LRU" flushInterval="600000" size="512" readOnly="true"/>
+    
+<!--    resultType: 返回类型-->
+    <select id="selectAll" resultType="entity.Table1">
+        select * from table1 order by age limit 10
+    </select>
+    
+<!--    单个参数的查询-->
+<!--    useCache="false"代表不使用缓存-->
+    <select id="selectById" parameterType="Integer" resultType="entity.Table1">
+        select * from table1 where id= #{value}
+    </select>
+    
+<!--    多参数传递-->
+    <select id="selectByAgeRange" parameterType="java.util.Map"  resultType="entity.Table1">
+        select * from table1
+        where
+            age between #{min} and #{max}
+        order by age
+        limit 0,#{limit}
+    </select>
+    
+<!--    
+        多表联合查询. 使用LinkedHaspMap保证顺序一致
+        key 是查询结果的字段名. value是对应的值, 类型会根据表结构自动判断
+-->
+    <select id="selectTableMap" resultType="java.util.LinkedHashMap">
+       select t1.*,t2.name as teachername
+        from table1 t1
+        left join table2 t2
+        on t1.id= t2.table1_id
+    </select>
+    
+<!--    
+        多表联合查询: 将查询结果映射为复杂类型的Java类对象. 
+-->
+    <resultMap id="rmTable" type="dto.TableDto">
+        <!--设置主键-->
+        <id property="table1.id" column="id"></id>
+        <result property="table1.name" column="name"></result>
+        <result property="table1.age" column="age"></result>
+        <result property="table1.homeAddress" column="home_address"></result>
+        <result property="teacherName" column="teachername"></result>
+    </resultMap>
+    <select id="selectTableDto" resultMap="rmTable">
+          select t1.*,t2.name as teachername
+        from table1 t1
+        left join table2 t2
+        on t1.id= t2.table1_id
+    </select>
+    
+<!--    插入数据, 并返回主键序号-->
+    <insert id="insert" parameterType="entity.Table1">
+        insert into `table1`(`name`,`age`,`home_address`)
+        values(#{name},#{age},#{homeAddress}) ;
+        <selectKey resultType="Integer" keyProperty="id" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+    </insert>
+    
+<!--    useGeneratedKeys 用于返回主键
+和 Table1.insert 的区别
+    selectKey标签需要明确编写获取最新主键的SQL语句
+    useGeneratedKeys 属性会自动根据驱动生成相应的SQL语句
+应用场景区别:
+    selectKey适合所有的关系型数据库
+    useGeneratedKeys只支持"自增主键"类型的数据库
+-->
+    <insert id="insert2" parameterType="entity.Table1" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into `table1`(`name`,`age`,`home_address`)
+        values(#{name},#{age},#{homeAddress}) ;
+    </insert>
+    
+<!--    更新-->
+    <update id="update" parameterType="entity.Table1">
+        update table1 set name=#{name},age=#{age},home_address=#{homeAddress} where id=#{id};
+    </update>
+    
+<!--    删除-->
+    <!--使用flushCache="true"在sql执行后清空缓存-->
+    <delete id="delete" parameterType="Integer">
+        delete from table1 where id=#{id}
+    </delete>
+    
+<!--    
+    ${} 直接拼接传值
+    #{} 预编译传值
+-->
+    
+<!--    动态SQL
+使用 1=1 进行占位. 保证 and 前一定有一个条件
+-->
+    <select id="dynamicSQL" parameterType="java.util.Map" resultType="entity.Table1">
+        select * from table1
+        <where>
+            <if test="name!=null">
+                and name=#{name}
+            </if>
+            <if test="age != null">
+                and age &lt; #{age}
+            </if> 
+        </where>             
+    </select>
+    
+    
+<!--    对象关联查询. 通过一个对象查询另外一写对象, 一对多-->
+<!--
+        resultMap可用于说明一对多或者多对一的映射逻辑
+        id是resultMap属性引用的标志
+        type指向One的实体
+-->
+    <resultMap id="rmTable1" type="entity.Table1">
+<!--        映射Table1对象的主键到表table1的id字段-->
+        <id column="id" property="id"></id>
+<!--
+        collection的含义是在  select  * from table1 limit 0,10得到结果之后,对所有的table1对象进行遍历得到id字段值,
+        并代入到 course 命名空间的 selectByCourseId 的SQL中执行查询,
+        将得到的"courses"集合赋值给List<Course> courses对象
+        用于一对多
+-->
+        <collection property="courses" select="course.selectByCourseId" column="id"/>
+    </resultMap>
+    <select id="selectOneToMany" resultMap="rmTable1">
+        select  * from table1 limit 0,10
+    </select>
+    
+    <select id="selectPage" resultType="entity.Table1">
+        select * from table1 
+    </select>
+    
+<!--    批插入
+    insert into table1(id,name,age,home_address) values(a1,a2,a3,a4),(b1,b2,b3,b4);
+    优点: 速度快
+    局限: 
+        无法获得被插入数据的id
+        批量生成的SQL太长可能会被服务器拒绝
+-->
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into table1(id,name,age,home_address)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id},#{item.name},#{item.age},#{item.homeAddress})
+        </foreach>
+    </insert>
+    
+<!--    批量删除
+        delete from table1 where id in(a1,a2,...)        
+-->
+    <delete id="batchDelete" parameterType="java.util.List">
+        delete from  table1 where id in  
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

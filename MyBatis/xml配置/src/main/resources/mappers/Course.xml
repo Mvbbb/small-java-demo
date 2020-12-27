@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="course">
+    <select id="selectByCourseId" parameterType="Integer" resultType="entity.Course">
+        select * from course where fk_t1id=#{value}
+    </select>
+    
+<!--
+        对象关联查询. 多对一    
+        !!!!!!!有问题,后改!!!!!!!!!!!
+-->
+    <resultMap id="rmCourse" type="entity.Course">
+        <!--字段名id映射到Course对象的id属性-->
+        <id column="id" property="id"></id>
+        <!--association用于多对一情况. column 对应 "select * from course limit 0,10;" 中需要被传入 "table1.selectById" 的字段-->
+        <association property="table1s" select="table1.selectById" column="fk_t1id"></association>
+    </resultMap>
+    <select id="selectManyToOne" resultMap="rmCourse">
+        select * from course limit 0,10;
+    </select>
+</mapper>

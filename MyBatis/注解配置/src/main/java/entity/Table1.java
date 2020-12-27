@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.List;
+
 public class Table1 {
     private Integer id;
     private String name;
