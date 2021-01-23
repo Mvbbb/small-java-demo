@@ -1,59 +1,36 @@
 /**
- * 
+ * 静态代理
  */
-public class Proxy {
+class Main{
     public static void main(String[] args) {
-        Image image = new ProxyImage("test_10mb.png");
-        // 第一次是new的，图像从磁盘加载
-        image.display();
-        // 第二次取缓存，图像不需要从磁盘加载
-        image.display();
+        UserService userService = new UserServiceProxy(new UserServiceImpl());
+        userService.createUser();
+        
     }
 }
 
-interface Image {
-    void display();
+interface UserService{
+    void createUser();
 }
 
-/**
- * 真正访问文件的类
- */
-class RealImage implements Image {
-	
-    private String fileName;
-   
-    public RealImage(String fileName) {
-        this.fileName = fileName;
-        loadFromDisk(fileName);
-    }
-   
-    private void loadFromDisk(String fileName) {
-        Log.e("RealImage", "loading " + fileName);
-    }
-   
+class UserServiceImpl implements UserService{
     @Override
-    public void display() {
-        Log.e("RealImage", "Displaying " + fileName);
+    public void createUser() {
+        System.out.println("创建用户");
     }
 }
 
-/**
- * 代理类
- */
-class ProxyImage implements Image {
-	
-    private String fileName;
-    private RealImage realImage;
-   
-    public ProxyImage(String fileName) {
-        this.fileName = fileName;
+
+class UserServiceProxy implements UserService{
+    private UserService userService;
+
+    public UserServiceProxy(UserService userService) {
+        this.userService = userService;
     }
-   
+
     @Override
-    public void display() {
-        if (realImage == null) {
-            realImage = new RealImage(fileName);
-        }
-        realImage.display();
+    public void createUser() {
+        System.out.println("用户创建的时间："+new Date(System.currentTimeMillis()));
+        userService.createUser();
     }
 }

@@ -4,8 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
-<!--        驼峰命名转换 home_adress ==> homeAdress -->
+        <!-- 驼峰命名转换 home_adress ==> homeAdress -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 二级缓存总开关, 开启所有 namespace 的二级缓存 -->
+        <setting name="cacheEnabled" value="true"/>
     </settings>
     
 <!--    插件 https://pagehelper.github.io/docs/howtouse/-->

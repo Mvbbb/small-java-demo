@@ -6,6 +6,7 @@
 <mapper namespace="table1">
     
 <!--    开启二级缓存
+二级缓存: 二级缓存是mapper（namespace）级别的。多个SqlSession去操作同一个Mapper的sql语句，多个SqlSession可以共用二级缓存，二级缓存是跨SqlSession的。
 eviction: 缓存的清除策略
     LRU: 最长时间未被使用的
     FIFO: 先进先出

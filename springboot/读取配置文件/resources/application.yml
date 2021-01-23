@@ -1,0 +1,12 @@
+server:
+  port: 8080
+  
+spring:
+  profiles:
+#    这里可以启用不同的配置文件 
+#    active: dev
+    active: prod
+
+prefix-properties:
+  name: '使用前缀注入'
+  site: 'yzh.im'
