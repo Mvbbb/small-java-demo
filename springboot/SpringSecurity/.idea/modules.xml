@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/my-jwtdemo/my-jwtdemo.iml" filepath="$PROJECT_DIR$/my-jwtdemo/my-jwtdemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-oauth2-authorization-code/my-oauth2-authorization-code.iml" filepath="$PROJECT_DIR$/my-oauth2-authorization-code/my-oauth2-authorization-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-oauth2-jwt/my-oauth2-jwt.iml" filepath="$PROJECT_DIR$/my-oauth2-jwt/my-oauth2-jwt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-oauth2-password/my-oauth2-password.iml" filepath="$PROJECT_DIR$/my-oauth2-password/my-oauth2-password.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-oauth2-redis-store-token/my-oauth2-redis-store-token.iml" filepath="$PROJECT_DIR$/my-oauth2-redis-store-token/my-oauth2-redis-store-token.iml" />
+    </modules>
+  </component>
+</project>

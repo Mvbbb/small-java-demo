@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="my-oauth2-redis-store-token" />
+        <module name="my-jwtdemo" />
+        <module name="my-oauth2-jwt" />
+        <module name="my-oauth2-password" />
+        <module name="my-oauth2-authorization-code" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="jjwt-demo" target="11" />
+      <module name="my-jwtdemo" target="11" />
+      <module name="my-oauth2-authorization-code" target="11" />
+      <module name="my-oauth2-jwt" target="11" />
+      <module name="my-oauth2-password" target="11" />
+      <module name="my-oauth2-redis-store-token" target="11" />
+      <module name="my-oauth2-sso" target="11" />
+      <module name="oauth2-client01-demo" target="11" />
+      <module name="springsecurityoauth2-demo" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="jjwt-demo" options="-parameters" />
+      <module name="my-jwtdemo" options="-parameters" />
+      <module name="my-oauth2-authorization-code" options="-parameters" />
+      <module name="my-oauth2-jwt" options="-parameters" />
+      <module name="my-oauth2-password" options="-parameters" />
+      <module name="my-oauth2-redis-store-token" options="-parameters" />
+      <module name="my-oauth2-sso" options="-parameters" />
+      <module name="oauth2-client01-demo" options="-parameters" />
+      <module name="springsecurityoauth2-demo" options="-parameters" />
+    </option>
+  </component>
+</project>

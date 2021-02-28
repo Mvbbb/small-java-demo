@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/jjwt-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/springsecurityoauth2-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/oauth2-client01-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/my-oauth2-authorization-code/pom.xml" />
+        <option value="$PROJECT_DIR$/my-oauth2-password/pom.xml" />
+        <option value="$PROJECT_DIR$/my-oauth2-redis-store-token/pom.xml" />
+        <option value="$PROJECT_DIR$/my-jwtdemo/pom.xml" />
+        <option value="$PROJECT_DIR$/my-oauth2-jwt/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+</project>
