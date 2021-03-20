@@ -1,0 +1,18 @@
+spring:
+  rabbitmq:
+    host: 192.168.206.131
+    username: guest
+    password: guest
+    virtual-host: /
+    port: 5672
+    # 开启发送端 exchange 确认
+    publisher-confirms: true
+    # 开启发送端消息抵达队列的确认
+    publisher-returns: true
+    # 只要抵达队列, 以异步的方式优先回调我们这个return confirm
+    template:
+      mandatory: true
+    # 消费端手动 ack 确认
+    listener:
+      simple:
+        acknowledge-mode: manual
